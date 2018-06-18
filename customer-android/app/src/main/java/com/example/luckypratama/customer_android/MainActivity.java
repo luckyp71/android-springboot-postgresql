@@ -1,77 +1,59 @@
 package com.example.luckypratama.customer_android;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
-import java.util.List;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import com.example.luckypratama.customer_android.model.Customer;
-import com.example.luckypratama.customer_android.api.CustomerApi;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private CustomerAdapter adapter;
+    private ArrayList<CustomerItem> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initViews();
+    }
 
-        ListView listView = findViewById(R.id.listView);
+    private void initViews(){
+        recyclerView = findViewById(R.id.recyclerview);
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        loadJSON();
+    }
 
+    private void loadJSON(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(CustomerApi.BASE_PATH)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        CustomerApi customerApi = retrofit.create(CustomerApi.class);
-
-        getCustomers(customerApi, listView);
-
-    }
-
-    // Get customers
-    public void getCustomers(CustomerApi cusApi, final ListView listView){
-
-        Call<List<Customer>> customersCall = cusApi.getCustomers();
-        customersCall.enqueue(new Callback<List<Customer>>() {
+        CustomerApi request = retrofit.create(CustomerApi.class);
+        Call<ArrayList<CustomerItem>> call = request.getJSON();
+        call.enqueue(new Callback<ArrayList<CustomerItem>>() {
             @Override
-            public void onResponse(Call<List<Customer>> call, Response<List<Customer>> response) {
-                List<Customer> customers = response.body();
-                for (Customer customer: customers) {
-                    Log.d("Customer ID", String.valueOf(customer.getId()));
-                    Log.d("Customer Name", customer.getName());
-                    Log.d("Customer Address", customer.getAddress());
-                    Log.d("Customer Phone Number", customer.getPhone_number());
-                    Log.d("Customer Email", customer.getEmail());
-                }
-
-                String[] customerNames = new String[customers.size()];
-
-                for (int i = 0; i < customers.size(); i++) {
-                    customerNames[i] = customers.get(i).getName();
-                }
-
-                listView.setAdapter(
-                        new ArrayAdapter<String> (
-                                getApplicationContext(),
-                                android.R.layout.simple_list_item_1,
-                                customerNames
-                        )
-                );
-
+            public void onResponse(Call<ArrayList<CustomerItem>> call, Response<ArrayList<CustomerItem>> response) {
+                ArrayList<CustomerItem> cusResponse = response.body();
+                data = new ArrayList<>(cusResponse);
+                adapter = new CustomerAdapter(data);
+                recyclerView.setAdapter(adapter);
             }
 
             @Override
-            public void onFailure(Call<List<Customer>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<ArrayList<CustomerItem>> call, Throwable t) {
+                Log.d("Error",t.getMessage());
             }
         });
-
     }
 }
