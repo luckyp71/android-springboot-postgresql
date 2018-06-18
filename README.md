@@ -7,7 +7,9 @@
 <p>2. <a href="https://www.eclipse.org/downloads/packages/">Eclipse</a></p>
 <p>3. <a href="https://marketplace.eclipse.org/content/spring-tools-aka-spring-ide-and-spring-tool-suite">Spring Tools</a></p>
 <p>4. <a href="https://developer.android.com/studio/">Android Studio</a></p>
-<p>5. <a href="https://maven.apache.org">Maven</a></p>
-<p>6. <a href="https://spring.io/projects/spring-boot">Spring Boot 2.0.2.RELEASE</a><p>
-<p>7 <a href="https://spring.io/projects/spring-data">Spring Data JPA</a></p>
-<p>8. <a href="https://www.postgresql.org">PostgreSQL</a></p>
+<p>5. <a href="http://square.github.io/retrofit/">Retrofit 2</a></p>
+<p>6. <a href="https://developer.android.com/guide/topics/ui/layout/recyclerview">RecyclerView</a></p>
+<p>7. <a href="https://maven.apache.org">Maven</a></p>
+<p>8. <a href="https://spring.io/projects/spring-boot">Spring Boot 2.0.2.RELEASE</a><p>
+<p>9. <a href="https://spring.io/projects/spring-data">Spring Data JPA</a></p>
+<p>10. <a href="https://www.postgresql.org">PostgreSQL</a></p>
