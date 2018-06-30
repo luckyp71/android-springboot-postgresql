@@ -1,10 +1,14 @@
-package com.example.luckypratama.customer_android;
+package com.example.luckypratama.customer_android.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.luckypratama.customer_android.models.CustomerItem;
+import com.example.luckypratama.customer_android.R;
+
 import java.util.ArrayList;
 
 public class CustomerAdapter extends RecyclerView.Adapter <CustomerAdapter.CustomerViewHolder> {
@@ -23,9 +27,9 @@ public class CustomerAdapter extends RecyclerView.Adapter <CustomerAdapter.Custo
 
             id = itemView.findViewById(R.id.cusID);
             name = itemView.findViewById(R.id.name);
-            address =  itemView.findViewById(R.id.address);
-            phone_number = itemView.findViewById(R.id.phone);
-            email = itemView.findViewById(R.id.email);
+//            address =  itemView.findViewById(R.id.address);
+////            phone_number = itemView.findViewById(R.id.phone);
+////            email = itemView.findViewById(R.id.email);
         }
     }
 
@@ -44,9 +48,9 @@ public class CustomerAdapter extends RecyclerView.Adapter <CustomerAdapter.Custo
     public void onBindViewHolder(CustomerAdapter.CustomerViewHolder holder, int position) {
         holder.id.setText("ID: "+String.valueOf(customerList.get(position).getId()));
         holder.name.setText("Name: "+customerList.get(position).getName());
-        holder.address.setText("Address: "+customerList.get(position).getAddress());
-        holder.phone_number.setText("Phone Number: "+customerList.get(position).getPhone_number());
-        holder.email.setText("Email: "+customerList.get(position).getEmail());
+//        holder.address.setText("Address: "+customerList.get(position).getAddress());
+//        holder.phone_number.setText("Phone Number: "+customerList.get(position).getPhone_number());
+//        holder.email.setText("Email: "+customerList.get(position).getEmail());
     }
 
     @Override

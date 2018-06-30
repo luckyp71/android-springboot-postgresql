@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Customer-Android</string>
+    <string name="add">Add Customer</string>
+    <string name="clear">Clear</string>
+    <string name="customerId">Customer ID</string>
+    <string name="customerName">Customer Name</string>
+    <string name="customerAddress">Customer Address</string>
+    <string name="customerPhoneNumber">Customer Phone Number</string>
+    <string name="customerEmail">Customer Email</string>
+    <string name="customerDetail">Customer Detail</string>
 </resources>
