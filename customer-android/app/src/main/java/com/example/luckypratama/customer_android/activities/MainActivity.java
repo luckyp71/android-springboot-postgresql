@@ -48,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         getCustomers();
-//        getCustomer();
-
     }
 
     private Retrofit config(){
@@ -82,39 +80,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Get customer by id
-//    public void getCustomer(Long id){
-//       CustomerApi request = this.config().create(CustomerApi.class);
-//       Call<CustomerItem> call = request.getCustomer(id);
-//       call.enqueue(new Callback<CustomerItem>() {
-//           @Override
-//           public void onResponse(Call<CustomerItem> call, final Response<CustomerItem> response) {
-//               Button btnAdd = findViewById(R.id.?);
-//               btnAdd.setOnClickListener(new View.OnClickListener(){
-//                   @Override
-//                   public void onClick(View vew){
-//                       Intent intent = new Intent(getBaseContext(), InsertUpdateActivity.class);
-//                       intent.putExtra("customer", response.body());
-//                       startActivity(intent);
-//
-//                   }
-//               });
-//           }
-//
-//           @Override
-//           public void onFailure(Call<CustomerItem> call, Throwable t) {
-//                Log.d("Error", t.getMessage());
-//           }
-//       });
-//    }
-
     // Insert customer
     public void goInsert(View view){
         Button btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(getBaseContext(), InsertUpdateActivity.class);
+                Intent intent = new Intent(getBaseContext(), InsertActivity.class);
                 startActivity(intent);
             }
         });

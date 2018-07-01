@@ -3,6 +3,7 @@ package com.example.luckypratama.customer_android.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.view.View;
@@ -18,7 +19,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class InsertUpdateActivity extends AppCompatActivity {
+public class InsertActivity extends AppCompatActivity {
 
     private EditText customerId, customerName, customerAddress, customerPhoneNumber, customerEmail;
     private Button btnAdd;
@@ -26,17 +27,17 @@ public class InsertUpdateActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_insert_update);
+        setContentView(R.layout.activity_insert);
         customerId = findViewById(R.id.customerId);
         customerName = findViewById(R.id.customerName);
         customerAddress = findViewById(R.id.customerAddress);
-        customerPhoneNumber =  findViewById(R.id.customerPhoneNumber);
+        customerPhoneNumber = findViewById(R.id.customerPhoneNumber);
         customerEmail = findViewById(R.id.customerEmail);
         btnAdd = findViewById(R.id.btnAdd);
 //        initViews();
     }
 
-    private Retrofit config(){
+    private Retrofit config() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(CustomerApi.BASE_PATH)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -44,7 +45,7 @@ public class InsertUpdateActivity extends AppCompatActivity {
         return retrofit;
     }
 
-//    public void initViews(){
+//    public void initViews() {
 //        Intent intent = getIntent();
 //        CustomerItem customer = (CustomerItem) intent.getExtras().getSerializable("customer");
 //        customerId.setText(String.valueOf(customer.getId()));
@@ -52,10 +53,10 @@ public class InsertUpdateActivity extends AppCompatActivity {
 //        customerAddress.setText(customer.getAddress());
 //        customerPhoneNumber.setText(customer.getPhone_number());
 //        customerEmail.setText(customer.getEmail());
-//        Toast.makeText(getApplicationContext(), "Data customer by id = "+customer.getId(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "Data customer by id = " + customer.getId(), Toast.LENGTH_SHORT).show();
 //    }
 
-    public void clear(View view){
+    public void clear(View view) {
         customerId.setText("");
         customerName.setText("");
         customerAddress.setText("");
@@ -63,13 +64,12 @@ public class InsertUpdateActivity extends AppCompatActivity {
         customerEmail.setText("");
     }
 
-
     // Insert customer
-    public void insertCustomer(View view){
+    public void insertCustomer(View view) {
 
-        btnAdd.setOnClickListener(new View.OnClickListener(){
+        btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 CustomerApi request = config().create(CustomerApi.class);
                 CustomerItem customer = new CustomerItem(Long.parseLong(String.valueOf(customerId.getText())), customerName.getText().toString(),
                         customerAddress.getText().toString(), customerPhoneNumber.getText().toString(),
@@ -78,18 +78,17 @@ public class InsertUpdateActivity extends AppCompatActivity {
                 call.enqueue(new Callback<CustomerItem>() {
                     @Override
                     public void onResponse(Call<CustomerItem> call, Response<CustomerItem> response) {
-
-
+                        InsertActivity.super.onBackPressed();
                     }
 
                     @Override
                     public void onFailure(Call<CustomerItem> call, Throwable t) {
-
+                        Log.d("Error", t.getMessage());
                     }
                 });
 
             }
         });
-//        this.finish();finish
+
     }
 }

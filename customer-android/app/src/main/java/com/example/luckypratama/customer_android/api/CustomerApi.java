@@ -26,12 +26,12 @@ public interface CustomerApi {
     Call<CustomerItem> getCustomer(@Path("id") long customerID);
 
 //    Insert customer
-    @POST("customers/")
+    @POST("customers")
     Call<CustomerItem> insertCustomer(@Body CustomerItem customer);
 
 //    Update customer
     @PUT("customers/{id}")
-    Call<CustomerItem> updateCustomer(@Path("id")long customerID);
+    Call<CustomerItem> updateCustomer(@Path("id")long customerID, @Body CustomerItem customer);
 
 //    Delete customer
     @DELETE("customers/{id}")

@@ -51,8 +51,8 @@ public class CustomerService {
 		Info info = new Info(customer.getName());
 		log.info("inserting new customer");
 		cusRepo.save(customer);
-		email.start();
-		info.start();
+//		email.start();
+//		info.start();
 		return CompletableFuture.supplyAsync(() -> "");
 	}	
 	
