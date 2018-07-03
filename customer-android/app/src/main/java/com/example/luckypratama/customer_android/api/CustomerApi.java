@@ -30,8 +30,8 @@ public interface CustomerApi {
     Call<CustomerItem> insertCustomer(@Body CustomerItem customer);
 
 //    Update customer
-    @PUT("customers/{id}")
-    Call<CustomerItem> updateCustomer(@Path("id")long customerID, @Body CustomerItem customer);
+    @PUT("customers")
+    Call<CustomerItem> updateCustomer(@Body CustomerItem customer);
 
 //    Delete customer
     @DELETE("customers/{id}")

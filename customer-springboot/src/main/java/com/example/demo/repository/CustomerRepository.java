@@ -14,20 +14,20 @@ public interface CustomerRepository extends JpaRepository <Customer, Long>{
 	// Get customers
 	@Async 
 	@Query(value="select * from customer", nativeQuery=true)
-	public CompletableFuture<Collection<Customer>> getCustomers();
+	public Collection<Customer> getCustomers();
 
 	// Get customers by address
 	@Async
 	@Query(value="select * from customer where address = ?1", nativeQuery=true)
-	public CompletableFuture<Collection<Customer>> getCustomersByAddress(String string);
+	public Collection<Customer> getCustomersByAddress(String string);
 	
 	// Get customer by name
 	@Async	
 	@Query(value="select * from customer where name = ?1", nativeQuery=true)
-	public CompletableFuture<Collection<Customer>> getCustomerByName(String name);
+	public Collection<Customer> getCustomerByName(String name);
 	
 	// Get customer by id
 	@Async
 	@Query(value="select * from customer where id = ?1", nativeQuery=true)
-	public CompletableFuture<Customer> getCustomerById(Long id);
+	public Customer getCustomerById(Long id);
 }

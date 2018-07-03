@@ -34,7 +34,6 @@ public class InsertActivity extends AppCompatActivity {
         customerPhoneNumber = findViewById(R.id.customerPhoneNumber);
         customerEmail = findViewById(R.id.customerEmail);
         btnAdd = findViewById(R.id.btnAdd);
-//        initViews();
     }
 
     private Retrofit config() {
@@ -44,17 +43,6 @@ public class InsertActivity extends AppCompatActivity {
                 .build();
         return retrofit;
     }
-
-//    public void initViews() {
-//        Intent intent = getIntent();
-//        CustomerItem customer = (CustomerItem) intent.getExtras().getSerializable("customer");
-//        customerId.setText(String.valueOf(customer.getId()));
-//        customerName.setText(customer.getName());
-//        customerAddress.setText(customer.getAddress());
-//        customerPhoneNumber.setText(customer.getPhone_number());
-//        customerEmail.setText(customer.getEmail());
-//        Toast.makeText(getApplicationContext(), "Data customer by id = " + customer.getId(), Toast.LENGTH_SHORT).show();
-//    }
 
     public void clear(View view) {
         customerId.setText("");
@@ -78,7 +66,7 @@ public class InsertActivity extends AppCompatActivity {
                 call.enqueue(new Callback<CustomerItem>() {
                     @Override
                     public void onResponse(Call<CustomerItem> call, Response<CustomerItem> response) {
-                        InsertActivity.super.onBackPressed();
+                        System.out.println("Success");
                     }
 
                     @Override
@@ -86,9 +74,9 @@ public class InsertActivity extends AppCompatActivity {
                         Log.d("Error", t.getMessage());
                     }
                 });
-
+                InsertActivity.super.finish();
             }
         });
-
+//        this.finish();
     }
 }

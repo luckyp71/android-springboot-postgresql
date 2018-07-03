@@ -16,11 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import com.example.demo.model.Customer;
 import com.example.demo.service.CustomerService;
 
@@ -49,16 +46,7 @@ public class CustomerController {
 		headers.add("successDesc", successHeaderKV.get("successDesc"));
 		headers.add(HttpHeaders.CONTENT_TYPE, successHeaderKV.get("contentType"));
 		
-		CompletableFuture<Collection<Customer>> cf = cusService.getCustomers();
-		Collection<Customer> customers = Collections.emptyList();
-		
-		try {
-			customers = cf.get();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		}
+		Collection<Customer> customers = cusService.getCustomers();
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(customers);
 	}
 	
@@ -71,18 +59,7 @@ public class CustomerController {
 		headers.add("successDesc", successHeaderKV.get("successDesc"));
 		headers.add(HttpHeaders.CONTENT_TYPE, successHeaderKV.get("contentType"));
 
-		CompletableFuture<Collection<Customer>> cf = cusService.getCustomersByName(name);
-		Collection<Customer> customersByName = Collections.emptyList();
-		
-		try {
-			customersByName = cf.get();
-			System.out.println("CompletableFuture Status: " + cf.isDone());
-			System.out.println("Finish Exceptionally Status: " + cf.isCompletedExceptionally());
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		}
+		Collection<Customer> customersByName = cusService.getCustomersByName(name);
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(customersByName);
 	}
 
@@ -93,18 +70,8 @@ public class CustomerController {
 		headers.add("responseCode", successHeaderKV.get("successCode"));
 		headers.add("responseDesc", successHeaderKV.get("successDesc"));
 		headers.add(HttpHeaders.CONTENT_TYPE, successHeaderKV.get("contentType"));
-		
-		CompletableFuture<Collection<Customer>> cf = cusService.getCustomersByAddress(address);
-		Collection<Customer> customersByAddress = Collections.emptyList();
-		try {
-			customersByAddress = cf.get();
-			System.out.println("CompletableFuture Status: " + cf.isDone());
-			System.out.println("Finish Exceptionally Status" + cf.isCompletedExceptionally());
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		}
+			
+		Collection<Customer> customersByAddress = cusService.getCustomersByAddress(address);
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(customersByAddress);
 	}
 	
@@ -116,37 +83,21 @@ public class CustomerController {
 		headers.add("responseDesc", successHeaderKV.get("responseDesc"));
 		headers.add(HttpHeaders.CONTENT_TYPE, successHeaderKV.get("contentType"));
 		
-		CompletableFuture<Customer> cf = cusService.getCustomerById(id);
-		Customer customer = null;
+		Customer customer = cusService.getCustomerById(id);
 		
-		try {
-			customer = cf.get();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch(ExecutionException e) {
-			e.printStackTrace();
-		}
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(customer);
 	}
 
 	// Insert new customer
 	@PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> insertCustomer(@RequestBody Customer customer) throws InterruptedException {
+	public ResponseEntity<String> insertCustomer(@RequestBody Customer customer) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("responseCode", successHeaderKV.get("successCode"));
 		headers.add("responseDesc", successHeaderKV.get("successDesc"));
 		headers.add(HttpHeaders.CONTENT_TYPE, successHeaderKV.get("contentType"));
 		
-		CompletableFuture<String> cf = cusService.insertCustomer(customer);
+		String insertCustomer = cusService.insertCustomer(customer);
 		
-		String insertCustomer = null;
-		try {
-			insertCustomer = cf.get();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		}
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(insertCustomer);
 	}
 	
@@ -158,16 +109,8 @@ public class CustomerController {
 		headers.add("responseDesc", successHeaderKV.get("successDesc"));
 		headers.add(HttpHeaders.CONTENT_TYPE, successHeaderKV.get("contentType"));
 		
-		CompletableFuture<String> cf = cusService.updateCustomer(customer);
-		String updateCustomer = null;
+		String updateCustomer = cusService.updateCustomer(customer);
 		
-		try {
-			updateCustomer = cf.get();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		}
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(updateCustomer);
 	}
 	
@@ -178,17 +121,9 @@ public class CustomerController {
 		headers.add("responseCode", successHeaderKV.get("successCode"));
 		headers.add("responseDesc", successHeaderKV.get("successDesc"));
 		headers.add(HttpHeaders.CONTENT_TYPE, successHeaderKV.get("contentType"));
+			
+		String deleteCustomer = cusService.deleteCustomer(id);
 		
-		CompletableFuture<String> cf = cusService.deleteCustomer(id);
-		String deleteCustomer = null;
-		
-		try {
-			deleteCustomer = cf.get();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		}
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(deleteCustomer);
 	}
 }

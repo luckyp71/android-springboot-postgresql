@@ -70,15 +70,14 @@ public class UpdateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 CustomerApi request = config().create(CustomerApi.class);
-                Long id = Long.parseLong(String.valueOf(customerId.getText()));
                 CustomerItem customer = new CustomerItem(Long.parseLong(String.valueOf(customerId.getText())), customerName.getText().toString(),
                         customerAddress.getText().toString(), customerPhoneNumber.getText().toString(),
                         customerEmail.getText().toString());
-                Call<CustomerItem> call = request.updateCustomer(id, customer);
+                Call<CustomerItem> call = request.updateCustomer(customer);
                 call.enqueue(new Callback<CustomerItem>() {
                     @Override
                     public void onResponse(Call<CustomerItem> call, Response<CustomerItem> response) {
-                        UpdateActivity.super.onBackPressed();
+                        System.out.println("Success");
                     }
 
                     @Override
@@ -86,7 +85,7 @@ public class UpdateActivity extends AppCompatActivity {
                         Log.d("Error", t.getMessage());
                     }
                 });
-
+                UpdateActivity.super.finish();
             }
         });
 
